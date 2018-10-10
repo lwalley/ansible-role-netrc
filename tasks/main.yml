@@ -1,0 +1,14 @@
+---
+- name: Generate .netrc file.
+  template:
+    src: templates/netrc.j2
+    dest: "{{ netrc_path }}"
+    mode: 0600
+
+- name: Encrypt .netrc file.
+  command: "gpg -r {{ netrc_gpg_recipient }} -e {{ netrc_path }}"
+
+- name: Ensure unencrypted .netrc file is deleted.
+  file:
+    state: absent
+    path: "{{ netrc_path }}"

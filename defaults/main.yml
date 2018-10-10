@@ -1,0 +1,4 @@
+---
+netrc_path: ~/.netrc
+netrc_encrypted: yes
+netrc_config: []

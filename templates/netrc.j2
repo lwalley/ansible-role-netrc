@@ -1,0 +1,13 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+{{ ansible_managed|comment }}
+
+{% if netrc_config is defined and netrc_config %}
+  {% for machine in netrc_config -%}
+  machine {{ machine.machine }}
+    {% if (machine.config is defined) and machine.config %}
+      {%- for config in machine.config -%}
+        {{ config.0|indent(2, true) }} {{ config.1 }}
+      {% endfor %}
+    {% endif %}
+  {%- endfor %}
+{% endif %}
